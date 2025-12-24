@@ -8,20 +8,37 @@
  *    reverse_coreqs: [],
  */
 
-export function dfs(start, graph) {
+export function dfs(start, graph, edgeKey) {
     const visited  = new Set();
 
     function visit(course) {
     if(visited.has(course)) return;
     visited.add(course);
 
-    const node = graph[course];
-    if(!node) return;
-    
-    for (const next of node.reverse_prereqs) {
-      visit(next);
+    const edges = graph[course]?.[edgeKey] ?? [];
+    for(const node of edges) {
+        visit(node);
     }
-    }
+  }
+
   visit(start);
   return visited;
+
+}
+
+export function bfs(start, graph, edgeKey) {
+    const visited = new Set([start]);
+    const queue = [start];
+    
+    while(queue.length > 0) {
+      const node = queue.shift();
+      const edges = graph[node]?.[edgeKey] ?? [];
+      for(const node of edges) {
+        if(!visited.has(node)) {
+            visited.add(node);
+            queue.push(node);
+        }
+      }
+    }
+    return visited;
 }
