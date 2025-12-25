@@ -11,13 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("button");
   const resDiv = document.getElementById("res_div");
 
-  function displayResults(results) {
-      resDiv.innerText = results.join("->");
+  function displayResults({prereqs, coreqs}) {
+      resDiv.innerHTML = `
+        <strong>Prerequisites:</strong> ${prereqs.join("->")}<br>
+        <strong>Corequisites:</strong> ${coreqs.join(" , ")}
+      `
 } 
 
     
-    function validateID(courseID) {
-      if(courseID.length > 9 || courseID.length < 6) {
+    function validateID(courseID, courseGraph) {
+      if(!courseGraph[courseID]) {
         resDiv.innerText = "ERROR: Invalid Course ID.";
         return false;
       }
@@ -25,16 +28,23 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
 
-    function getPrereqs(courseID, courseGraph) {
-       return dfs(courseID, courseGraph, "prereqs");
+    function getEdges(courseID, courseGraph, edgeKey) {
+       return dfs(courseID, courseGraph, edgeKey);
     }
 
   loadGraph().then(courseGraph => {
   button.addEventListener("click", () => {
     const courseID = input.value;
-    if(validateID(courseID)) {
-      const results = getPrereqs(courseID, courseGraph);
-      displayResults(results);
+    if(validateID(courseID, courseGraph)) {
+      const prereqs = getEdges(courseID, courseGraph, "prereqs");
+      if(prereqs.length == 0) {
+        prereqs.push("No prerequisites for this course.")
+      }
+      const coreqs  = getEdges(courseID, courseGraph, "coreqs");
+      if(coreqs.length == 0) {
+        coreqs.push("No corequisites for this course.")
+      }
+      displayResults({prereqs, coreqs});
     } 
   });
   });

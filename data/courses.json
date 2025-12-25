@@ -1,20 +1,14 @@
 {
   "CMSC131": {
     "prereqs": [],
-    "coreqs": [],
-    "reverse_prereqs": ["CMSC132"],
-    "reverse_coreqs": []
+    "coreqs": []
   },
   "CMSC132": {
     "prereqs": ["CMSC131"],
-    "coreqs": [],
-    "reverse_prereqs": ["CMSC216"],
-    "reverse_coreqs": []
+    "coreqs": []
   },
   "CMSC216": {
     "prereqs": ["CMSC132"],
-    "coreqs": [],
-    "reverse_prereqs": [],
-    "reverse_coreqs": []
+    "coreqs": []
   }
 }
