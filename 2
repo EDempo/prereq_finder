@@ -13,66 +13,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("input");
   const button = document.getElementById("button");
   const resDiv = document.getElementById("res_div");
+  const ul = document.createElement("ul");
 
   function displayResults({prereqs, coreqs, reverse_prereqs}) {
-      resDiv.textContent = "";
-      const ul_prereqs = document.createElement("ul_prereqs");
-      const ul_coreqs = document.createElement("ul_coreqs");
-
-      const label_prereqs = document.createElement("strong");
-      label_prereqs.textContent = "Prerequisites";
-
-      resDiv.appendChild(label_prereqs);
-      resDiv.appendChild(document.createElement("br"));
       for(const c of prereqs) {
         const li = document.createElement("li");
-        if(c !== "No prerequisites for this course.") {
-        const link = document.createElement("a");
-        link.href = "#";
-        link.textContent = c;
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          input.value = c;
-          button.click();
-        });
-        li.appendChild(link);
-        } else {
-          li.textContent = c;
-        }
-
-        ul_prereqs.appendChild(li);
+        li.textContent = c;
+        ul.appendChild(li);
       }
-      
-      resDiv.appendChild(ul_prereqs);
-      resDiv.appendChild(document.createElement("br"));
-
-      const label_coreqs = document.createElement("strong");
-      label_coreqs.textContent = "Corequisites";
-      resDiv.appendChild(label_coreqs);
-      resDiv.appendChild(document.createElement("br"));
 
       for(const c of coreqs) {
         const li = document.createElement("li");
-        if(c !== "No prerequisites for this course.") {
-        const link = document.createElement("a");
-        link.href = "#";
-        link.textContent = c;
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          input.value = c;
-          button.click();
-        });
-        li.appendChild(link);
-        } else {
-          li.textContent = c;
-        }
-
-        ul_coreqs.appendChild(li);
+        li.textContent = c;
+        ul.appendChild(li);
       }
 
-      resDiv.appendChild(ul_coreqs);
-      resDiv.appendChild(document.createElement("br"));
-      
+      resDiv.appendChild(ul);
 } 
 
     

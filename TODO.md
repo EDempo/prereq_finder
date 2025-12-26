@@ -1,33 +1,7 @@
 UMD Course Prereq Finder – Full App Roadmap
 Day 1 – Setup & Project Foundation  - DONE
-
 Day 2 – Graph Logic - DONE
-
 Day 3 – Basic UI Integration - DONE
-
-Goals: Connect your graph logic to a working web interface.
-
-Tasks:
-
-Load courses.json dynamically using fetch() in ui.js.
-
-Handle asynchronous loading with async/await or then().
-
-Add input validation (length, optional existence check in graph).
-
-Attach a click listener to the button to fetch input and run DFS.
-
-Display results in a <div> using .innerText or .innerHTML.
-
-Extensions for Day 3:
-
-Test with multiple course IDs.
-
-Fix edge cases (empty input, non-existent course).
-
-Ensure your app is robust and doesn’t throw runtime errors.
-
-Outcome: You have a working UI that displays prereqs for any valid course.
 
 Day 4 – Full Traversal & Coreqs
 

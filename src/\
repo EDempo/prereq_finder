@@ -10,9 +10,7 @@
   <button type="button" id="button">Search CourseID</button>
 
   <div id="res_div"> 
-    <h1 id="h1-prereqs"> </h1>
-    <h1 id="h1-coreqs"> </h1>
-    <ul> <li>
+    <h1 id="h1"> </h1>
   </div>
 
   <script type="module" src="src/ui.js"></script>
