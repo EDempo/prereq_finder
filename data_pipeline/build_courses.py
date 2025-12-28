@@ -30,12 +30,10 @@ courseGraph = {}
 # Reversing the year catalog means if there is a conflict for a course between two semesters, the more recent semester takes precedent
 
 for term in reversed(year_catalog):
-    print("HERE WE GO AGAIN")
     page = 1
 
     while(1):
         try:
-            print(f"On page {page}")
             response = requests.get(f'https://api.umd.io/v1/courses?semester={term}&page={page}&per_page=100')
             courses = response.json()
             if not courses:
