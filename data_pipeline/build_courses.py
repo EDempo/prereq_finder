@@ -52,6 +52,14 @@ try:
             print(f"An unexpected error occured: {e}")
             continue
 
+    for course_id in courseGraph:
+        course = courseGraph[course_id]
+        for prereq in course['prereqs']:
+            if prereq  in courseGraph:
+                reverse_course = courseGraph[prereq]
+                if course_id not in reverse_course['reverse_prereqs']:
+                    reverse_course['reverse_prereqs'].append(course_id)
+
     with open("../data/courses.json", "w") as f:
         json.dump(courseGraph, f, indent=2)
 
