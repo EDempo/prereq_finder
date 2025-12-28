@@ -60,7 +60,7 @@ try:
                 if course_id not in reverse_course['reverse_prereqs']:
                     reverse_course['reverse_prereqs'].append(course_id)
 
-    with open("../data/courses.json", "w") as f:
+    with open("../site/data/courses.json", "w") as f:
         json.dump(courseGraph, f, indent=2)
 
     
