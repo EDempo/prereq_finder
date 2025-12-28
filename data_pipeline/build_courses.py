@@ -14,7 +14,7 @@ try:
             terms.pop(),
             terms.pop()
             ]
-    print(year_catalog)
+
 except requests.exceptions.Timeout as e:
         print(f"The request timed out: {e}")
         sys.exit(1)
@@ -26,13 +26,17 @@ except Exception as e:
     print(f"An unexpected error occured: {e}")
 
 courseGraph = {}
-for term in year_catalog:
+
+# Reversing the year catalog means if there is a conflict for a course between two semesters, the more recent semester takes precedent
+
+for term in reversed(year_catalog):
+    print("HERE WE GO AGAIN")
     page = 1
 
     while(1):
         try:
             print(f"On page {page}")
-            response = requests.get(f'https://api.umd.io/v1/courses?page={page}&per_page=100')
+            response = requests.get(f'https://api.umd.io/v1/courses?semester={term}&page={page}&per_page=100')
             courses = response.json()
             if not courses:
                 break
@@ -56,7 +60,8 @@ for term in year_catalog:
                         "reverse_prereqs": []
                         }
 
-                courseGraph[course_id] = course_dict
+                if course_id not in courseGraph:
+                    courseGraph[course_id] = course_dict
             page += 1
 
         except requests.exceptions.Timeout as e:
@@ -69,15 +74,13 @@ for term in year_catalog:
         except Exception as e:
             print(f"An unexpected error occured: {e}")
 
-    for course_id in courseGraph:
-        course = courseGraph[course_id]
-        for prereq in course['prereqs']:
-            if prereq  in courseGraph:
-                reverse_course = courseGraph[prereq]
-                if course_id not in reverse_course['reverse_prereqs']:
-                    reverse_course['reverse_prereqs'].append(course_id)
+for course_id in courseGraph:
+    course = courseGraph[course_id]
+    for prereq in course['prereqs']:
+        if prereq  in courseGraph:
+            reverse_course = courseGraph[prereq]
+            if course_id not in reverse_course['reverse_prereqs']:
+                reverse_course['reverse_prereqs'].append(course_id)
 
 with open("../site/data/courses.json", "w") as f:
     json.dump(courseGraph, f, indent=2)
-
-        
