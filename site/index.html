@@ -1,21 +1,54 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title> UMD Prereq Finder </title>
-  <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <title>UMD Prereq Finder</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div id="search_container">
-  <input id="input" name="input">
-  <button type="button" id="button">Search CourseID</button>
-  </div>
-  <div id="res_div"> 
-    <h1 id="h1-prereqs"> </h1>
-    <h1 id="h1-coreqs"> </h1>
-    <ul> <li>
-  </div>
+  <main>
+
+    <header>
+      <h1>UMD Prerequisite Explorer</h1>
+      <p>
+        Explore prerequisites, corequisites, and reverse prerequisites
+        for UMD courses.
+      </p>
+    </header>
+
+    <section class="search-box">
+      <input id="course-input" type="text" placeholder="e.g. CMSC132" />
+      <button id="search-button">Search</button>
+    </section>
+
+    <section class="results">
+
+      <div class="panel">
+        <h2>Prerequisites</h2>
+        <ul class="course-chain" id="prereqs-list">
+          <li class="placeholder">No course selected</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>Corequisites</h2>
+        <ul class="course-chain" id="coreqs-list">
+          <li class="placeholder">No course selected</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>Reverse Prerequisites</h2>
+        <ul class="course-chain" id="reverse-list">
+          <li class="placeholder">No course selected</li>
+        </ul>
+      </div>
+
+    </section>
+
+  </main>
 
   <script type="module" src="src/ui.js"></script>
 </body>

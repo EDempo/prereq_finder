@@ -1,9 +1,8 @@
 UMD Course Prereq Finder – Full App Roadmap
-Day 1 – Setup & Project Foundation  - DONE
-Day 2 – Graph Logic - DONE
-Day 3 – Basic UI Integration - DONE
-
-Day 4 – Full Traversal & Coreqs
+Setup & Project Foundation  - DONE
+Graph Logic - DONE
+Basic UI Integration - DONE
+Full Traversal & Coreqs - DONE
 
 Goals: Extend the app to show all course relationships.
 
