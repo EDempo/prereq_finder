@@ -3,30 +3,24 @@ import { dfs, bfs } from "./graph.js";
 async function loadGraph() {
   const response = await fetch("/data/courses.json");
   const graph = await response.json();
-  console.log("Fetched.");
-  console.log(graph);
   return graph;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("UI Loaded");
-  const input = document.getElementById("input");
-  const button = document.getElementById("button");
-  const resDiv = document.getElementById("res_div");
+  const input = document.getElementById("course-input");
+  const button = document.getElementById("search-button");
 
   function displayResults({ prereqs, coreqs, reverse_prereqs }) {
-    resDiv.textContent = "";
-    const ul_prereqs = document.createElement("ul_prereqs");
-    const ul_coreqs = document.createElement("ul_coreqs");
+    const ul_prereqs = document.getElementById("prereqs-list");
+    const ul_coreqs  =  document.getElementById("coreqs-list");
+    const ul_reverse =  document.getElementById("reverse-list");
+    ul_prereqs.textContent = "";
+    ul_coreqs.textContent = "";
+    ul_reverse.textContent = "";
 
-    const label_prereqs = document.createElement("strong");
-    label_prereqs.textContent = "Prerequisites";
-
-    resDiv.appendChild(label_prereqs);
-    resDiv.appendChild(document.createElement("br"));
     for (const c of prereqs) {
       const li = document.createElement("li");
-      if (c !== "No prerequisites for this course.") {
+      if (c != "No prerequisites for this course.") {
         const link = document.createElement("a");
         link.href = "#";
         link.textContent = c;
@@ -43,17 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
       ul_prereqs.appendChild(li);
     }
 
-    resDiv.appendChild(ul_prereqs);
-    resDiv.appendChild(document.createElement("br"));
-
-    const label_coreqs = document.createElement("strong");
-    label_coreqs.textContent = "Corequisites";
-    resDiv.appendChild(label_coreqs);
-    resDiv.appendChild(document.createElement("br"));
 
     for (const c of coreqs) {
       const li = document.createElement("li");
-      if (c !== "No prerequisites for this course.") {
+      if (c != "No corequisites for this course.") {
         const link = document.createElement("a");
         link.href = "#";
         link.textContent = c;
@@ -70,8 +57,27 @@ document.addEventListener("DOMContentLoaded", () => {
       ul_coreqs.appendChild(li);
     }
 
-    resDiv.appendChild(ul_coreqs);
-    resDiv.appendChild(document.createElement("br"));
+
+    for (const c of reverse_prereqs) {
+      const li = document.createElement("li");
+      if (c != "None") {
+        const link = document.createElement("a");
+        link.href = "#";
+        link.textContent = c;
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          input.value = c;
+          button.click();
+        });
+        li.appendChild(link);
+      } else {
+        li.textContent = c;
+      }
+
+      ul_reverse.appendChild(li);
+    }
+
+
   }
 
   function validateID(courseID, courseGraph) {
