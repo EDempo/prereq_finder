@@ -25,15 +25,17 @@
 
     <section class="results">
 
-      <div class="panel">
-        <h2>Prerequisites</h2>
-        <ul class="course-chain" id="prereqs-list">
-          <li class="placeholder">No course selected</li>
-        </ul>
+
+      <h2>Prerequisites</h2>
+      <h5 class="count" id="prereq-count"> </h5>
+      <ul class="course-chain" id="prereqs-list">
+        <li class="placeholder">No course selected</li>
+      </ul>
       </div>
 
       <div class="panel">
         <h2>Corequisites</h2>
+        <h5 class="count" id="coreq-count"> </h5>
         <ul class="course-chain" id="coreqs-list">
           <li class="placeholder">No course selected</li>
         </ul>
@@ -41,6 +43,8 @@
 
       <div class="panel">
         <h2>Reverse Prerequisites</h2>
+        <h5 class="count" id="reverse-count"> </h5>
+        <button class="collapsible" id="collapsible-button">Dynamic button text</button>
         <ul class="course-chain" id="reverse-list">
           <li class="placeholder">No course selected</li>
         </ul>
