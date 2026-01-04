@@ -81,22 +81,25 @@ document.addEventListener("DOMContentLoaded", () => {
     render(ul_reverse, visible);
   });
 
+  const reverseSearch = document.getElementById("reverse-search");
+
   loadGraph().then((courseGraph) => {
     button.addEventListener("click", () => {
       const courseID = input.value.toUpperCase();
       if (validateID(courseID, courseGraph)) {
         state = "hidden";
         collapse_button.textContent = "Show";
-        prereqs = getEdgesBFS(courseID, courseGraph, "prereqs");
+        reverseSearch.value = "";
+        prereqs = getEdgesDFS(courseID, courseGraph, "prereqs");
         if (prereqs.length == 0) {
           prereqs.push("No prerequisites for this course.");
         }
 
-        coreqs = getEdgesDFS(courseID, courseGraph, "coreqs");
+        coreqs = getEdgesBFS(courseID, courseGraph, "coreqs");
         if (coreqs.length == 0) {
           coreqs.push("No corequisites for this course.");
         }
-        reverses = getEdgesDFS(courseID, courseGraph, "reverse_prereqs");
+        reverses = getEdgesDFS(courseID, courseGraph, "reverse_prereqs").sort();
         if (reverses.length == 0) {
           reverses.push("None");
         }
@@ -128,6 +131,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 : `Showing ${reverses.length} out of ${reverses.length} subsequent courses.`;
           }
           render(ul_reverse, visible);
+          reverseSearch.addEventListener("input", () => {
+            const query = reverseSearch.value.toUpperCase();
+
+            const filtered = reverses.filter((c) =>
+              c.toUpperCase().includes(query),
+            );
+
+            ul_reverse.textContent = "";
+            render(ul_reverse, filtered);
+            reverse_count.textContent = `Showing ${filtered.length} of ${reverses.length} subsequent courses`;
+          });
         } else {
           reverse_count.textContent = `No subsequent courses found.`;
         }

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>UMD Prereq Finder</title>
+  <title>UMD Prerequisite Explorer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -12,25 +12,21 @@
 
     <header>
       <h1>UMD Prerequisite Explorer</h1>
-      <p>
-        Explore prerequisites, corequisites, and reverse prerequisites
-        for UMD courses.
-      </p>
+      <p>Explore prerequisites, corequisites, and subsequent courses.</p>
     </header>
 
     <section class="search-box">
-      <input id="course-input" type="text" placeholder="e.g. CMSC132" />
+      <input id="course-input" type="text" placeholder="e.g. CMSC132" autocomplete="off" />
       <button id="search-button">Search</button>
-      <p id="error"></p>
     </section>
+
+    <p id="error"></p>
 
     <section class="results">
 
-
       <div class="panel">
         <h2>Prerequisites</h2>
-        <h5 class=" count" id="prereq-count">
-        </h5>
+        <h5 class="count" id="prereq-count"></h5>
         <ul class="course-chain" id="prereqs-list">
           <li class="placeholder">No course selected</li>
         </ul>
@@ -38,7 +34,7 @@
 
       <div class="panel">
         <h2>Corequisites</h2>
-        <h5 class="count" id="coreq-count"> </h5>
+        <h5 class="count" id="coreq-count"></h5>
         <ul class="course-chain" id="coreqs-list">
           <li class="placeholder">No course selected</li>
         </ul>
@@ -46,9 +42,10 @@
 
       <div class="panel">
         <h2>Subsequent Courses</h2>
-        <h5 class="count" id="reverse-count"> </h5>
-        <button class="collapsible" id="collapsible-button">Dynamic button text</button>
-        <ul class="course-chain" id="reverse-list">
+        <h5 class="count" id="reverse-count"></h5>
+        <input type="text" id="reverse-search" class="inline-search" placeholder="Filter courses..." />
+        <button id="collapsible-button" class="collapsible">Show All</button>
+        <ul class="course-chain collapsible" id="reverse-list">
           <li class="placeholder">No course selected</li>
         </ul>
       </div>

@@ -8,18 +8,26 @@
 
 export function dfs(start, graph, edgeKey) {
   const visited = new Set();
+  const visiting = new Set();
   const final = [];
 
   function visit(course) {
-    if (visited.has(course)) return;
-    visited.add(course);
-    if (course !== start) {
-      final.unshift(course);
+    if (visiting.has(course)) {
+      return "Error: Length and width must be positive values.";
     }
 
-    const edges = graph[course]?.[edgeKey] ?? [];
+    if (visited.has(course)) return;
+    visiting.add(course);
+
+    const edges = (graph[course]?.[edgeKey] ?? []).sort();
     for (const node of edges) {
       visit(node);
+    }
+
+    visiting.delete(course);
+    visited.add(course);
+    if (course !== start) {
+      final.push(course);
     }
   }
 

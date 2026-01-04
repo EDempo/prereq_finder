@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>UMD Prereq Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main>
+
+    <header>
+      <h1>UMD Prerequisite Explorer</h1>
+      <p>
+        Explore prerequisites, corequisites, and reverse prerequisites
+        for UMD courses.
+      </p>
+    </header>
+
+    <section class="search-box">
+      <input id="course-input" type="text" placeholder="e.g. CMSC132" />
+      <button id="search-button">Search</button>
+      <p id="error"></p>
+    </section>
+
+    <section class="result-card">
+      <header class="result-header">
+        <h3>Prerequisites</h3>
+        <span class="count">3 courses</span>
+      </header>
+
+      <ul class="course-list"></ul>
+      <li class="placeholder">No course selected</li>
+    </section>
+
+    <section class="result-card">
+      <header class="result-header">
+        <h3>Corequisites</h3>
+        <span class="count">3 courses</span>
+      </header>
+
+      <ul class="course-list"></ul>
+      <li class="placeholder">No course selected</li>
+    </section>
+
+    <section class="result-card">
+
+      <section class="result-card">
+        <header class="result-header">
+          <h3>Subsequent Courses</h3>
+          <span class="count">3 courses</span>
+        </header>
+
+        <ul class="course-list"></ul>
+        <li class="placeholder">No course selected</li>
+      </section>
+
+
+  </main>
+
+  <script type="module" src="src/ui.js"></script>
+</body>
+
+</html>
