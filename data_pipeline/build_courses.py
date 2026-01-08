@@ -2,8 +2,42 @@ import requests
 import re
 import sys
 import json
+import tree.py
 
 year_catalog = []
+
+#prereqs: 1 course with a minimum grade of C- from (CMSC412, CMSC417, CMSC420, CMSC430, CMSC433, ENEE447); and permission of CMNS-Computer Science department.
+# {
+# type: OR
+#   children: [
+#       courses: ["CMSC412", "CMSC417", "CMSC420", "CMSC430", "CMSC433", "ENEE447"]
+#   ]
+# }
+
+#prereqs": "Minimum grade of C- in ENEE322 or ENEE323.
+# {
+# type: OR
+#   children: [
+#       courses: ["ENEE322", ENEE323"]
+# }
+
+# "prereqs": "1 course with a minimum grade of C- from (CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457); 
+# and permission of ENGR-Electrical & Computer Engineering department; 
+# and (ENEE350, CMSC330, and CMSC351).",
+# {
+# type: AND
+#   children: [
+#       {
+#       type: OR
+#           children: ["CMSC414", "CMSC417", "CMSC420", "CMSC430", "CMSC433", "CMSC435", "ENEE440", "ENEE457"]
+#       },
+#       {
+#       type: AND
+#           children: ["ENEE350", "CMSC330", "CMSC351"]
+#       }
+#   ]
+# }
+
 
 try: 
     term_response = requests.get('https://api.umd.io/v1/courses/semesters')
@@ -29,6 +63,7 @@ courseGraph = {}
 
 # Reversing the year catalog means if there is a conflict for a course between two semesters, the more recent semester takes precedent
 
+
 for term in reversed(year_catalog):
     page = 1
 
@@ -44,6 +79,7 @@ for term in reversed(year_catalog):
                 prereq_string = relationships['prereqs']
                 prereqs = []
                 if prereq_string is not None:
+                    normalize(prereq_string)
                     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
                     prereqs = re.findall(course_pattern, prereq_string)
 

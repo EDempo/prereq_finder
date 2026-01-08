@@ -11,7 +11,7 @@ Make the app dynamic, always up-to-date, and ready for public access. -not yet
 Implement caching of the course graph to avoid multiple fetches.
 
 Task 1: Logic Handling
-[ ] Decide on a minimal prereq logic structure (COURSE / AND / OR)
+[✔] Decide on a minimal prereq logic structure (COURSE / AND / OR)
 [ ] Update Python prereq parser to output a logic tree instead of raw strings
 [ ] Add a helper to flatten logic trees into a simple course list for graph traversal
 [ ] Store both:
