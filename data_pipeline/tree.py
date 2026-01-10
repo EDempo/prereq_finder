@@ -40,13 +40,28 @@ print(tokenize(s))
 #if AND, call and parser; if AND is outside of PAREN, then  make type of courseTree AND
 
 #I will have a paren flag letting me know if I'm in a set of parenthesis
-#I will make a subtree for all tre
+#I will make a subtree for all tree
+
 def parse(tokens: list) -> courseNode:
+    courseTree = courseNode(None, [])
     for i in range(len(tokens)):
         if tokens[i] == "OR":
             parse_or(tokens[i:])
-    return courseNode(None, [])
+        elif tokens[i] == "AND":
+            parse_and(tokens[i:])
+        else:
+            courseTree.children.append(tokens[i])
+    return courseTree 
 
 
 def parse_or(token_slice):
+    while token_slice[i] != "RPAREN":
+        
 
+#expression := term (AND term)*
+#term       := factor (OR factor)*
+#factor     := COURSE | LPAREN expression RPAREN
+        
+
+def parse_and(token_slice):
+    pass
