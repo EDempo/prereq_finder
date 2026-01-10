@@ -30,7 +30,7 @@ def tokenize(s: str) -> list:
                 tokens.append(course.group())
     return tokens
 
-s = "1 course with a minimum grade of C- from (CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457); and permission of ENGR-Electrical & Computer Engineering department; and (ENEE350, CMSC330, and CMSC351).";
+s = "1 course with a minimum grade of C- from (CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457); and permission of ENGR-Electrical & Computer Engineering department; and (ENEE350, CMSC330, and CMSC351)."
 print(tokenize(s))
 #for token in tokens:
 #if LPAREN, while not right paren follow parse rules for all other token types
@@ -43,19 +43,43 @@ print(tokenize(s))
 #I will make a subtree for all tree
 
 def parse(tokens: list) -> courseNode:
-    courseTree = courseNode(None, [])
-    for i in range(len(tokens)):
+    children = []
+    type = None
+    i = 0
+    while i < len(tokens): 
         if tokens[i] == "OR":
-            parse_or(tokens[i:])
+            if(type != "AND"):
+                type = "OR"
+            or_node, i = parse_or(tokens, i + 1)
+            children.append(or_node)
         elif tokens[i] == "AND":
-            parse_and(tokens[i:])
+            type = "AND"
+            and_node, i = parse_and(tokens, i + 1)
+            children.append(and_node)
+ 
         else:
-            courseTree.children.append(tokens[i])
-    return courseTree 
+            children.append(tokens[i])
+        i += 1
+    return courseNode(type, children)
 
 
-def parse_or(token_slice):
-    while token_slice[i] != "RPAREN":
+def parse_or(tokens, i):
+    children = []
+    if tokens[i] == "LPAREN":
+        i += 1
+    while tokens[i] != "RPAREN" and i < len(tokens):
+        if tokens[i] == "OR" and tokens[i+1] == "LPAREN":
+            children.append(parse_or(tokens, i + 1))
+        elif tokens[i] == "AND" and tokens[i+1] == "RPAREN":
+            children.append(parse_and(tokens, i + 1))
+        else:
+            children.append(tokens[i])
+        i += 1
+    return (courseNode("OR", children)), i
+
+
+    
+        
         
 
 #expression := term (AND term)*
@@ -63,5 +87,18 @@ def parse_or(token_slice):
 #factor     := COURSE | LPAREN expression RPAREN
         
 
-def parse_and(token_slice):
-    pass
+def parse_and(tokens, i):
+    children = []
+    if tokens[i] == "LPAREN":
+        i += 1
+    while tokens[i] != "RPAREN" and i < len(tokens):
+        if tokens[i] == "OR":
+            if(tokens[i+1] == "LPAREN"):
+                children.append(parse_or(tokens, i + 1))
+        elif tokens[i] == "AND":
+            if(tokens[i+1] == "LPAREN"):
+                children.append(parse_and(tokens, i+1 ))
+        else:
+            children.append(tokens[i])
+        i += 1
+    return (courseNode("AND", children)), i
