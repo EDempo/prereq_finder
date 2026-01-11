@@ -42,6 +42,13 @@ print(tokenize(s))
 #I will have a paren flag letting me know if I'm in a set of parenthesis
 #I will make a subtree for all tree
 
+#expression := term (AND term)*
+#term       := factor (OR factor)*
+#factor     := COURSE/LPAREN expression RPAREN
+
+#Expression takes highest precedence, then terms, then factors
+
+
 def parse(tokens: list) -> courseNode:
     children = []
     type = None
@@ -82,9 +89,6 @@ def parse_or(tokens, i):
         
         
 
-#expression := term (AND term)*
-#term       := factor (OR factor)*
-#factor     := COURSE | LPAREN expression RPAREN
         
 
 def parse_and(tokens, i):
