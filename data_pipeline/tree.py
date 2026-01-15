@@ -5,33 +5,70 @@ class courseNode:
         self.type = type_
         self.children = children
 
+    def __eq__(self, other):
+        if not isinstance(other, courseNode):
+            return False
+        return self.type == other.type and self.children == other.children
+
+    def __repr__(self):
+        return f"{self.type}({self.children})"
+
+def print_node(node):
+    print("PRINTING")
+    if(isinstance(node, courseNode)):
+        print(node.type)
+        for i in node.children:
+            if(isinstance(i, courseNode)):
+                print_node(i)
+            else:
+                print(f"{i}\n")
+
 def treeify(s):
-    return parse(tokenize(s))
+    return(parse_expression(tokenize(s), 0))
+
+def expand(match, op):
+    print("ho\n")
+    inner = match.group(1)
+    courses = [c.strip() for c in inner.split(",")]
+    print(f"this:{courses}")
+    return "(" + op.join(courses) + ")"
+
+def normalize(s):
+    s = re.sub(r"1 course.*?from \(([^()]*)\)",
+               lambda m: expand(m, " OR "),
+               s,
+               flags=re.IGNORECASE)
+
+    s = re.sub(r"\(([^()]*?,[^()]*)\)",
+               lambda m: expand(m, " AND "),
+               s)
+
+
+    return s
 
 def tokenize(s: str) -> list:
     tokens = []
-    s = re.sub("1 course.*?from", " OR ", s)
+    s = normalize(s)
     s = re.sub(r"and\s+permission\s+of\s+.*?department\s*;?", "", s, flags = re.IGNORECASE)
-    s = s.upper()
     s = re.sub(r"\(", " LPAREN ", s) 
     s = re.sub(r"\)", " RPAREN ", s)
     punct = r"[;,\.-]"
     s = re.sub(punct, "", s)
-    print(f"This is the string: {s}\n")
 
     lst = s.split()
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
     for word in lst:
         if word in {"OR" , "AND" , "LPAREN" , "RPAREN" }:
+            print(word)
             tokens.append(word)
         else:
             course = re.fullmatch(course_pattern, word)
             if course:
                 tokens.append(course.group())
+
+    print(f"TOKENS:\n{tokens}\n-------------------------------\n")
     return tokens
 
-s = "1 course with a minimum grade of C- from (CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457); and permission of ENGR-Electrical & Computer Engineering department; and (ENEE350, CMSC330, and CMSC351)."
-print(tokenize(s))
 #for token in tokens:
 #if LPAREN, while not right paren follow parse rules for all other token types
 #if RPAREN, break out of the loop and just go back to the main parse loop
@@ -48,61 +85,113 @@ print(tokenize(s))
 
 #Expression takes highest precedence, then terms, then factors
 
-
-def parse(tokens: list) -> courseNode:
-    children = []
-    type = None
-    i = 0
-    while i < len(tokens): 
-        if tokens[i] == "OR":
-            if(type != "AND"):
-                type = "OR"
-            or_node, i = parse_or(tokens, i + 1)
-            children.append(or_node)
-        elif tokens[i] == "AND":
-            type = "AND"
-            and_node, i = parse_and(tokens, i + 1)
-            children.append(and_node)
- 
-        else:
-            children.append(tokens[i])
+def parse_expression(tokens, i):
+    node, i = parse_term(tokens, i)
+    while i < len(tokens) and tokens[i] == "AND":
         i += 1
-    return courseNode(type, children)
+        right, i = parse_term(tokens, i)
+        node = courseNode("AND", [node, right])
+    print("parsed expression")
+    print_node(node)
+    return node, i
 
-
-def parse_or(tokens, i):
-    children = []
-    if tokens[i] == "LPAREN":
+def parse_term(tokens, i):
+    node, i = parse_factor(tokens, i)
+    while tokens[i] == "OR":
         i += 1
-    while tokens[i] != "RPAREN" and i < len(tokens):
-        if tokens[i] == "OR" and tokens[i+1] == "LPAREN":
-            children.append(parse_or(tokens, i + 1))
-        elif tokens[i] == "AND" and tokens[i+1] == "RPAREN":
-            children.append(parse_and(tokens, i + 1))
-        else:
-            children.append(tokens[i])
+        node = courseNode("OR", parse_factor(tokens, i))
+    print("parsed term")
+    print(node)
+    return node, i
+
+def parse_factor(tokens, i):
+    course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
+    if re.match(course_pattern, tokens[i]):
+        lst = []
+        lst.append(tokens[i])
         i += 1
-    return (courseNode("OR", children)), i
-
-
-    
-        
-        
-
-        
-
-def parse_and(tokens, i):
-    children = []
-    if tokens[i] == "LPAREN":
+        while re.match(course_pattern, tokens[i]):
+            lst.append(tokens[i])
+            i += 1
+        return lst, i
+    elif tokens[i] == "LPAREN":
         i += 1
-    while tokens[i] != "RPAREN" and i < len(tokens):
-        if tokens[i] == "OR":
-            if(tokens[i+1] == "LPAREN"):
-                children.append(parse_or(tokens, i + 1))
-        elif tokens[i] == "AND":
-            if(tokens[i+1] == "LPAREN"):
-                children.append(parse_and(tokens, i+1 ))
-        else:
-            children.append(tokens[i])
+        node = parse_expression(tokens, i)
         i += 1
-    return (courseNode("AND", children)), i
+        print("parsed factor")
+        print(node)
+        return node, i
+    else:
+        print("No factor\n")
+        return None, i
+
+## Factor Testing ##
+def test_factor_course():
+    tokens = ["CMSC351"]
+    node, i = parse_factor(tokens, 0)
+
+    assert node == "CMSC351", "test factor course failed"
+    assert i == 1, "test factor course failed"
+
+def test_factor_parens():
+    tokens = ["LPAREN", "CMSC330", "RPAREN"]
+    node, i = parse_factor(tokens, 0)
+
+    assert node == "CMSC330", "test factor perens failed"
+    assert i == 3, "test factor parens failed"
+
+def test_term_or_chain():
+    tokens = ["CMSC330", "OR", "CMSC351", "OR", "CMSC420"]
+    node, i = parse_term(tokens, 0)
+
+    expected = courseNode(
+        "OR",
+        [
+            courseNode("OR", ["CMSC330", "CMSC351"]),
+            "CMSC420"
+        ]
+    )
+
+    assert node == expected, "or chain"
+    assert i == len(tokens), "or chain"
+
+def test_expression_and_or():
+    tokens = [
+        "CMSC330", "AND",
+        "CMSC351", "OR",
+        "CMSC420"
+    ]
+
+    node, i = parse_expression(tokens, 0)
+
+    expected = courseNode(
+        "AND",
+        [
+            "CMSC330",
+            courseNode("OR", ["CMSC351", "CMSC420"])
+        ]
+    )
+
+    assert node == expected, "and or"
+    assert i == len(tokens), "and or"
+
+def test_full_prereq():
+    s = (
+        "1 course with a minimum grade of C- from "
+        "(CMSC414, CMSC417, CMSC420); "
+        "and (ENEE350, CMSC330, and CMSC351)."
+    )
+    node, _ = treeify(s)
+
+    expected = courseNode(
+        "AND",
+        [
+            courseNode("OR", ["CMSC414", "CMSC417", "CMSC420"]),
+            courseNode("AND", ["ENEE350", "CMSC330", "CMSC351"])
+        ]
+    )
+
+    assert node == expected, "full"
+    print_node(node)
+
+
