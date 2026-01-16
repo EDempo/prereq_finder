@@ -21,9 +21,10 @@ year_catalog = []
 #       courses: ["ENEE322", ENEE323"]
 # }
 
-# "prereqs": "1 course with a minimum grade of C- from (CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457); 
-# and permission of ENGR-Electrical & Computer Engineering department; 
-# and (ENEE350, CMSC330, and CMSC351).",
+# "prereqs": s = ("1 course with a minimum grade of C- from (CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457);" 
+                # "and permission of ENGR-Electrical & Computer Engineering department;"
+                # "and (ENEE350, CMSC330, and CMSC351)."
+                #)
 # {
 # type: AND
 #   children: [

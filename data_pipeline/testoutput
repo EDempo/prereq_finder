@@ -1,10 +1,10 @@
-['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430', 'CMSC433', 'CMSC435', 'ENEE440', 'ENEE457']
-['ENEE350', 'CMSC330', 'and CMSC351']
-(CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 OR CMSC433 OR CMSC435 OR ENEE440 OR ENEE457);and permission of ENGR-Electrical & Computer Engineering department;and (ENEE350 AND CMSC330 AND  CMSC351).
+||| RUN #0 |||
+Normalized string is (CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 OR CMSC433 OR CMSC435 OR ENEE440 OR ENEE457);and permission of ENGR-Electrical & Computer Engineering department;and (ENEE350 AND CMSC330 AND  CMSC351).
+this is s after all is s&d:  LPAREN CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 OR CMSC433 OR CMSC435 OR ENEE440 OR ENEE457 RPAREN AND  LPAREN ENEE350 AND CMSC330 AND  CMSC351 RPAREN 
 tokens is ['LPAREN', 'CMSC414', 'OR', 'CMSC417', 'OR', 'CMSC420', 'OR', 'CMSC430', 'OR', 'CMSC433', 'OR', 'CMSC435', 'OR', 'ENEE440', 'OR', 'ENEE457', 'RPAREN', 'AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
 OR,
 [ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
-blah
 back, i is 16
 returning my node now
 OR,
@@ -12,24 +12,24 @@ OR,
 i am in here 16
 i is now 17, print node is now: OR,
 [ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+Post parse_term, node is:
 OR,
 [ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
-blah
 back, i is 17
 in the expr while, i is 17
 remaining tokens are: ['AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
-blah
+Post parse_term, node is:
 back, i is 20
 in the expr while, i is 20
 remaining tokens are: ['AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
-blah
+Post parse_term, node is:
 ['ENEE350', 'CMSC330']
 gonna print node now
 AND,
 [ ENEE350, CMSC330 ]
 in the expr while, i is 22
 remaining tokens are: ['AND', 'CMSC351', 'RPAREN']
-blah
+Post parse_term, node is:
 ['ENEE350', 'CMSC330', 'CMSC351']
 gonna print node now
 AND,
@@ -40,9 +40,9 @@ AND,
 i am in here 24
 i is now 25, print node is now: AND,
 [ ENEE350, CMSC330, CMSC351 ]
+Post parse_term, node is:
 AND,
 [ ENEE350, CMSC330, CMSC351 ]
-blah
 [OR(['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430', 'CMSC433', 'CMSC435', 'ENEE440', 'ENEE457']), AND(['ENEE350', 'CMSC330', 'CMSC351'])]
 gonna print node now
 AND,
@@ -88,11 +88,846 @@ AND,
 , AND,
 [ ENEE350, CMSC330, CMSC351 ]
  ]
-hi
+On run 0, same same
+||| RUN #1 |||
+Normalized string is (CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 OR CMSC433 OR CMSC435 OR ENEE440 OR ENEE457); and (ENEE350 AND CMSC330 AND  CMSC351).
+this is s after all is s&d:  LPAREN CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 OR CMSC433 OR CMSC435 OR ENEE440 OR ENEE457 RPAREN  AND  LPAREN ENEE350 AND CMSC330 AND  CMSC351 RPAREN 
+tokens is ['LPAREN', 'CMSC414', 'OR', 'CMSC417', 'OR', 'CMSC420', 'OR', 'CMSC430', 'OR', 'CMSC433', 'OR', 'CMSC435', 'OR', 'ENEE440', 'OR', 'ENEE457', 'RPAREN', 'AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+back, i is 16
+returning my node now
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+i am in here 16
+i is now 17, print node is now: OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+Post parse_term, node is:
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+back, i is 17
+in the expr while, i is 17
+remaining tokens are: ['AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+back, i is 20
+in the expr while, i is 20
+remaining tokens are: ['AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+['ENEE350', 'CMSC330']
+gonna print node now
+AND,
+[ ENEE350, CMSC330 ]
+in the expr while, i is 22
+remaining tokens are: ['AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+['ENEE350', 'CMSC330', 'CMSC351']
+gonna print node now
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+returning my node now
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+i am in here 24
+i is now 25, print node is now: AND,
+[ ENEE350, CMSC330, CMSC351 ]
+Post parse_term, node is:
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+[OR(['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430', 'CMSC433', 'CMSC435', 'ENEE440', 'ENEE457']), AND(['ENEE350', 'CMSC330', 'CMSC351'])]
+gonna print node now
 AND,
 [ OR,
 [ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
 , AND,
 [ ENEE350, CMSC330, CMSC351 ]
  ]
-all good!
+returning my node now
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+On run 1, same same
+||| RUN #2 |||
+Normalized string is Minimum grade of C- in CMSC132; and (MATH141 OR MATH142); and permission of department.
+this is s after all is s&d: MINIMUM GRADE OF C IN CMSC132 AND  LPAREN MATH141 OR MATH142 RPAREN  
+tokens is ['CMSC132', 'AND', 'LPAREN', 'MATH141', 'OR', 'MATH142', 'RPAREN']
+Post parse_term, node is:
+back, i is 1
+in the expr while, i is 1
+remaining tokens are: ['AND', 'LPAREN', 'MATH141', 'OR', 'MATH142', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ MATH141, MATH142 ]
+back, i is 6
+returning my node now
+OR,
+[ MATH141, MATH142 ]
+i am in here 6
+i is now 7, print node is now: OR,
+[ MATH141, MATH142 ]
+Post parse_term, node is:
+OR,
+[ MATH141, MATH142 ]
+['CMSC132', OR(['MATH141', 'MATH142'])]
+gonna print node now
+AND,
+[ CMSC132, OR,
+[ MATH141, MATH142 ]
+ ]
+returning my node now
+AND,
+[ CMSC132, OR,
+[ MATH141, MATH142 ]
+ ]
+AND,
+[ CMSC132, OR,
+[ MATH141, MATH142 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ CMSC132, OR,
+[ MATH141, MATH142 ]
+ ]
+
+This is the result node:
+
+AND,
+[ CMSC132, OR,
+[ MATH141, MATH142 ]
+ ]
+On run 2, same same
+||| RUN #3 |||
+Normalized string is Prerequisite: (CMSC216 OR CMSC226); and (MATH141 OR MATH140); and PHYS161.
+this is s after all is s&d: PREREQUISITE:  LPAREN CMSC216 OR CMSC226 RPAREN  AND  LPAREN MATH141 OR MATH140 RPAREN  AND PHYS161
+tokens is ['LPAREN', 'CMSC216', 'OR', 'CMSC226', 'RPAREN', 'AND', 'LPAREN', 'MATH141', 'OR', 'MATH140', 'RPAREN', 'AND', 'PHYS161']
+Post parse_term, node is:
+OR,
+[ CMSC216, CMSC226 ]
+back, i is 4
+returning my node now
+OR,
+[ CMSC216, CMSC226 ]
+i am in here 4
+i is now 5, print node is now: OR,
+[ CMSC216, CMSC226 ]
+Post parse_term, node is:
+OR,
+[ CMSC216, CMSC226 ]
+back, i is 5
+in the expr while, i is 5
+remaining tokens are: ['AND', 'LPAREN', 'MATH141', 'OR', 'MATH140', 'RPAREN', 'AND', 'PHYS161']
+Post parse_term, node is:
+OR,
+[ MATH141, MATH140 ]
+back, i is 10
+returning my node now
+OR,
+[ MATH141, MATH140 ]
+i am in here 10
+i is now 11, print node is now: OR,
+[ MATH141, MATH140 ]
+Post parse_term, node is:
+OR,
+[ MATH141, MATH140 ]
+[OR(['CMSC216', 'CMSC226']), OR(['MATH141', 'MATH140'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ MATH141, MATH140 ]
+ ]
+in the expr while, i is 11
+remaining tokens are: ['AND', 'PHYS161']
+Post parse_term, node is:
+[OR(['CMSC216', 'CMSC226']), OR(['MATH141', 'MATH140']), 'PHYS161']
+gonna print node now
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ MATH141, MATH140 ]
+, PHYS161 ]
+returning my node now
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ MATH141, MATH140 ]
+, PHYS161 ]
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ MATH141, MATH140 ]
+, PHYS161 ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ MATH141, MATH140 ]
+, PHYS161 ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ MATH141, MATH140 ]
+, PHYS161 ]
+On run 3, same same
+||| RUN #4 |||
+Normalized string is (CMSC412 OR CMSC417 OR CMSC420); and (ENEE440 OR ENEE447); and permission of CMNS-Computer Science department.
+this is s after all is s&d:  LPAREN CMSC412 OR CMSC417 OR CMSC420 RPAREN  AND  LPAREN ENEE440 OR ENEE447 RPAREN  
+tokens is ['LPAREN', 'CMSC412', 'OR', 'CMSC417', 'OR', 'CMSC420', 'RPAREN', 'AND', 'LPAREN', 'ENEE440', 'OR', 'ENEE447', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ CMSC412, CMSC417, CMSC420 ]
+back, i is 6
+returning my node now
+OR,
+[ CMSC412, CMSC417, CMSC420 ]
+i am in here 6
+i is now 7, print node is now: OR,
+[ CMSC412, CMSC417, CMSC420 ]
+Post parse_term, node is:
+OR,
+[ CMSC412, CMSC417, CMSC420 ]
+back, i is 7
+in the expr while, i is 7
+remaining tokens are: ['AND', 'LPAREN', 'ENEE440', 'OR', 'ENEE447', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ ENEE440, ENEE447 ]
+back, i is 12
+returning my node now
+OR,
+[ ENEE440, ENEE447 ]
+i am in here 12
+i is now 13, print node is now: OR,
+[ ENEE440, ENEE447 ]
+Post parse_term, node is:
+OR,
+[ ENEE440, ENEE447 ]
+[OR(['CMSC412', 'CMSC417', 'CMSC420']), OR(['ENEE440', 'ENEE447'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC412, CMSC417, CMSC420 ]
+, OR,
+[ ENEE440, ENEE447 ]
+ ]
+returning my node now
+AND,
+[ OR,
+[ CMSC412, CMSC417, CMSC420 ]
+, OR,
+[ ENEE440, ENEE447 ]
+ ]
+AND,
+[ OR,
+[ CMSC412, CMSC417, CMSC420 ]
+, OR,
+[ ENEE440, ENEE447 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC412, CMSC417, CMSC420 ]
+, OR,
+[ ENEE440, ENEE447 ]
+ ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC412, CMSC417, CMSC420 ]
+, OR,
+[ ENEE440, ENEE447 ]
+ ]
+On run 4, same same
+||| RUN #5 |||
+Normalized string is Prerequisite: ((CMSC414 OR CMSC417) OR CMSC420); and (ENEE350 AND CMSC330 AND CMSC351).
+this is s after all is s&d: PREREQUISITE:  LPAREN  LPAREN CMSC414 OR CMSC417 RPAREN  OR CMSC420 RPAREN  AND  LPAREN ENEE350 AND CMSC330 AND CMSC351 RPAREN 
+tokens is ['LPAREN', 'LPAREN', 'CMSC414', 'OR', 'CMSC417', 'RPAREN', 'OR', 'CMSC420', 'RPAREN', 'AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ CMSC414, CMSC417 ]
+back, i is 5
+returning my node now
+OR,
+[ CMSC414, CMSC417 ]
+i am in here 5
+i is now 6, print node is now: OR,
+[ CMSC414, CMSC417 ]
+Post parse_term, node is:
+OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+back, i is 8
+returning my node now
+OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+i am in here 8
+i is now 9, print node is now: OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+Post parse_term, node is:
+OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+back, i is 9
+in the expr while, i is 9
+remaining tokens are: ['AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+back, i is 12
+in the expr while, i is 12
+remaining tokens are: ['AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+['ENEE350', 'CMSC330']
+gonna print node now
+AND,
+[ ENEE350, CMSC330 ]
+in the expr while, i is 14
+remaining tokens are: ['AND', 'CMSC351', 'RPAREN']
+Post parse_term, node is:
+['ENEE350', 'CMSC330', 'CMSC351']
+gonna print node now
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+returning my node now
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+i am in here 16
+i is now 17, print node is now: AND,
+[ ENEE350, CMSC330, CMSC351 ]
+Post parse_term, node is:
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+[OR([OR(['CMSC414', 'CMSC417']), 'CMSC420']), AND(['ENEE350', 'CMSC330', 'CMSC351'])]
+gonna print node now
+AND,
+[ OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+returning my node now
+AND,
+[ OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+AND,
+[ OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420 ]
+, OR,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ OR,
+[ CMSC414, CMSC417 ]
+, CMSC420 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+On run 5, diff diff
+||| RUN #6 |||
+Normalized string is Minimum grade of C- in (CMSC132 OR CMSC216); and (STAT100 OR STAT400); and (MATH140 OR MATH141).
+this is s after all is s&d: MINIMUM GRADE OF C IN  LPAREN CMSC132 OR CMSC216 RPAREN  AND  LPAREN STAT100 OR STAT400 RPAREN  AND  LPAREN MATH140 OR MATH141 RPAREN 
+tokens is ['LPAREN', 'CMSC132', 'OR', 'CMSC216', 'RPAREN', 'AND', 'LPAREN', 'STAT100', 'OR', 'STAT400', 'RPAREN', 'AND', 'LPAREN', 'MATH140', 'OR', 'MATH141', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ CMSC132, CMSC216 ]
+back, i is 4
+returning my node now
+OR,
+[ CMSC132, CMSC216 ]
+i am in here 4
+i is now 5, print node is now: OR,
+[ CMSC132, CMSC216 ]
+Post parse_term, node is:
+OR,
+[ CMSC132, CMSC216 ]
+back, i is 5
+in the expr while, i is 5
+remaining tokens are: ['AND', 'LPAREN', 'STAT100', 'OR', 'STAT400', 'RPAREN', 'AND', 'LPAREN', 'MATH140', 'OR', 'MATH141', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ STAT100, STAT400 ]
+back, i is 10
+returning my node now
+OR,
+[ STAT100, STAT400 ]
+i am in here 10
+i is now 11, print node is now: OR,
+[ STAT100, STAT400 ]
+Post parse_term, node is:
+OR,
+[ STAT100, STAT400 ]
+[OR(['CMSC132', 'CMSC216']), OR(['STAT100', 'STAT400'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC132, CMSC216 ]
+, OR,
+[ STAT100, STAT400 ]
+ ]
+in the expr while, i is 11
+remaining tokens are: ['AND', 'LPAREN', 'MATH140', 'OR', 'MATH141', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ MATH140, MATH141 ]
+back, i is 16
+returning my node now
+OR,
+[ MATH140, MATH141 ]
+i am in here 16
+i is now 17, print node is now: OR,
+[ MATH140, MATH141 ]
+Post parse_term, node is:
+OR,
+[ MATH140, MATH141 ]
+[OR(['CMSC132', 'CMSC216']), OR(['STAT100', 'STAT400']), OR(['MATH140', 'MATH141'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC132, CMSC216 ]
+, OR,
+[ STAT100, STAT400 ]
+, OR,
+[ MATH140, MATH141 ]
+ ]
+returning my node now
+AND,
+[ OR,
+[ CMSC132, CMSC216 ]
+, OR,
+[ STAT100, STAT400 ]
+, OR,
+[ MATH140, MATH141 ]
+ ]
+AND,
+[ OR,
+[ CMSC132, CMSC216 ]
+, OR,
+[ STAT100, STAT400 ]
+, OR,
+[ MATH140, MATH141 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC132, CMSC216 ]
+, OR,
+[ STAT100, STAT400 ]
+, OR,
+[ MATH140, MATH141 ]
+ ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC132, CMSC216 ]
+, OR,
+[ STAT100, STAT400 ]
+, OR,
+[ MATH140, MATH141 ]
+ ]
+On run 6, same same
+||| RUN #7 |||
+Normalized string is Prerequisite: (CMSC412 AND CMSC417 AND CMSC420); or permission of instructor.
+this is s after all is s&d: PREREQUISITE:  LPAREN CMSC412 AND CMSC417 AND CMSC420 RPAREN  
+tokens is ['LPAREN', 'CMSC412', 'AND', 'CMSC417', 'AND', 'CMSC420', 'RPAREN']
+Post parse_term, node is:
+back, i is 2
+in the expr while, i is 2
+remaining tokens are: ['AND', 'CMSC417', 'AND', 'CMSC420', 'RPAREN']
+Post parse_term, node is:
+['CMSC412', 'CMSC417']
+gonna print node now
+AND,
+[ CMSC412, CMSC417 ]
+in the expr while, i is 4
+remaining tokens are: ['AND', 'CMSC420', 'RPAREN']
+Post parse_term, node is:
+['CMSC412', 'CMSC417', 'CMSC420']
+gonna print node now
+AND,
+[ CMSC412, CMSC417, CMSC420 ]
+returning my node now
+AND,
+[ CMSC412, CMSC417, CMSC420 ]
+i am in here 6
+i is now 7, print node is now: AND,
+[ CMSC412, CMSC417, CMSC420 ]
+Post parse_term, node is:
+AND,
+[ CMSC412, CMSC417, CMSC420 ]
+back, i is 7
+returning my node now
+AND,
+[ CMSC412, CMSC417, CMSC420 ]
+AND,
+[ CMSC412, CMSC417, CMSC420 ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+OR,
+[ CMSC412, CMSC417, CMSC420 ]
+
+This is the result node:
+
+AND,
+[ CMSC412, CMSC417, CMSC420 ]
+On run 7, diff diff
+||| RUN #8 |||
+Normalized string is (CMSC414 OR CMSC417 OR CMSC420 OR CMSC430); and (MATH141 OR MATH142 OR STAT100); and PHYS161.
+this is s after all is s&d:  LPAREN CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 RPAREN  AND  LPAREN MATH141 OR MATH142 OR STAT100 RPAREN  AND PHYS161
+tokens is ['LPAREN', 'CMSC414', 'OR', 'CMSC417', 'OR', 'CMSC420', 'OR', 'CMSC430', 'RPAREN', 'AND', 'LPAREN', 'MATH141', 'OR', 'MATH142', 'OR', 'STAT100', 'RPAREN', 'AND', 'PHYS161']
+Post parse_term, node is:
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+back, i is 8
+returning my node now
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+i am in here 8
+i is now 9, print node is now: OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+Post parse_term, node is:
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+back, i is 9
+in the expr while, i is 9
+remaining tokens are: ['AND', 'LPAREN', 'MATH141', 'OR', 'MATH142', 'OR', 'STAT100', 'RPAREN', 'AND', 'PHYS161']
+Post parse_term, node is:
+OR,
+[ MATH141, MATH142, STAT100 ]
+back, i is 16
+returning my node now
+OR,
+[ MATH141, MATH142, STAT100 ]
+i am in here 16
+i is now 17, print node is now: OR,
+[ MATH141, MATH142, STAT100 ]
+Post parse_term, node is:
+OR,
+[ MATH141, MATH142, STAT100 ]
+[OR(['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430']), OR(['MATH141', 'MATH142', 'STAT100'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+, OR,
+[ MATH141, MATH142, STAT100 ]
+ ]
+in the expr while, i is 17
+remaining tokens are: ['AND', 'PHYS161']
+Post parse_term, node is:
+[OR(['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430']), OR(['MATH141', 'MATH142', 'STAT100']), 'PHYS161']
+gonna print node now
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+, OR,
+[ MATH141, MATH142, STAT100 ]
+, PHYS161 ]
+returning my node now
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+, OR,
+[ MATH141, MATH142, STAT100 ]
+, PHYS161 ]
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+, OR,
+[ MATH141, MATH142, STAT100 ]
+, PHYS161 ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+, OR,
+[ MATH141, MATH142, STAT100 ]
+, PHYS161 ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430 ]
+, OR,
+[ MATH141, MATH142, STAT100 ]
+, PHYS161 ]
+On run 8, same same
+||| RUN #9 |||
+Normalized string is Prerequisite: (CMSC216 OR CMSC226); and ((MATH141 AND PHYS161) OR MATH140).
+this is s after all is s&d: PREREQUISITE:  LPAREN CMSC216 OR CMSC226 RPAREN  AND  LPAREN  LPAREN MATH141 AND PHYS161 RPAREN  OR MATH140 RPAREN 
+tokens is ['LPAREN', 'CMSC216', 'OR', 'CMSC226', 'RPAREN', 'AND', 'LPAREN', 'LPAREN', 'MATH141', 'AND', 'PHYS161', 'RPAREN', 'OR', 'MATH140', 'RPAREN']
+Post parse_term, node is:
+OR,
+[ CMSC216, CMSC226 ]
+back, i is 4
+returning my node now
+OR,
+[ CMSC216, CMSC226 ]
+i am in here 4
+i is now 5, print node is now: OR,
+[ CMSC216, CMSC226 ]
+Post parse_term, node is:
+OR,
+[ CMSC216, CMSC226 ]
+back, i is 5
+in the expr while, i is 5
+remaining tokens are: ['AND', 'LPAREN', 'LPAREN', 'MATH141', 'AND', 'PHYS161', 'RPAREN', 'OR', 'MATH140', 'RPAREN']
+Post parse_term, node is:
+back, i is 9
+in the expr while, i is 9
+remaining tokens are: ['AND', 'PHYS161', 'RPAREN', 'OR', 'MATH140', 'RPAREN']
+Post parse_term, node is:
+['MATH141', 'PHYS161']
+gonna print node now
+AND,
+[ MATH141, PHYS161 ]
+returning my node now
+AND,
+[ MATH141, PHYS161 ]
+i am in here 11
+i is now 12, print node is now: AND,
+[ MATH141, PHYS161 ]
+Post parse_term, node is:
+OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+back, i is 14
+returning my node now
+OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+i am in here 14
+i is now 15, print node is now: OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+Post parse_term, node is:
+OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+[OR(['CMSC216', 'CMSC226']), OR([AND(['MATH141', 'PHYS161']), 'MATH140'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+ ]
+returning my node now
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+ ]
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+ ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC216, CMSC226 ]
+, OR,
+[ AND,
+[ MATH141, PHYS161 ]
+, MATH140 ]
+ ]
+On run 9, same same
+||| RUN #10 |||
+Normalized string is Minimum grade of C- in CMSC132; and minimum grade of C- in CMSC216; and minimum grade of C- in CMSC250.
+this is s after all is s&d: MINIMUM GRADE OF C IN CMSC132 AND MINIMUM GRADE OF C IN CMSC216 AND MINIMUM GRADE OF C IN CMSC250
+tokens is ['CMSC132', 'AND', 'CMSC216', 'AND', 'CMSC250']
+Post parse_term, node is:
+back, i is 1
+in the expr while, i is 1
+remaining tokens are: ['AND', 'CMSC216', 'AND', 'CMSC250']
+Post parse_term, node is:
+['CMSC132', 'CMSC216']
+gonna print node now
+AND,
+[ CMSC132, CMSC216 ]
+in the expr while, i is 3
+remaining tokens are: ['AND', 'CMSC250']
+Post parse_term, node is:
+['CMSC132', 'CMSC216', 'CMSC250']
+gonna print node now
+AND,
+[ CMSC132, CMSC216, CMSC250 ]
+returning my node now
+AND,
+[ CMSC132, CMSC216, CMSC250 ]
+AND,
+[ CMSC132, CMSC216, CMSC250 ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ CMSC132, CMSC216, CMSC250 ]
+
+This is the result node:
+
+AND,
+[ CMSC132, CMSC216, CMSC250 ]
+On run 10, same same

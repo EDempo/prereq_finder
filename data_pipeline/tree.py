@@ -34,7 +34,6 @@ def treeify(s):
 def expand(match, op):
     inner = match.group(1)
     courses = [c.strip() for c in inner.split(",")]
-    print(courses)
     for i in range(len(courses)):
         if "and" in courses[i]:
             courses[i] = courses[i].replace("and", "")
@@ -52,18 +51,20 @@ def normalize(s):
                s)
 
 
-    print(s)
+    print(f"Normalized string is {s}")
     return s
 
 def tokenize(s: str) -> list:
     tokens = []
     s = normalize(s)
     s = re.sub(r"and\s+permission\s+of\s+.*?department\s*;?", "", s, flags = re.IGNORECASE)
+    s = re.sub(r"or\s+permission\s+of\s+.*?instructor\s*;?", "", s, flags = re.IGNORECASE)
     s = re.sub(r"\(", " LPAREN ", s) 
     s = re.sub(r"\)", " RPAREN ", s)
     punct = r"[;,\.-]"
     s = re.sub(punct, "", s)
     s = s.upper()
+    print(f"this is s after all is s&d: {s}")
 
     lst = s.split()
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
@@ -118,16 +119,15 @@ def parse_expression(tokens, i):
 def parse_term(tokens, i):
     children = []
     node, i = parse_factor(tokens, i)
-    if(isinstance(node, str)):
-        children.append(node)
+    children.append(node)
     while i < len(tokens) and tokens[i] == "OR":
         i += 1
         right, i = parse_factor(tokens, i)
         children.append(right)
         node = courseNode("OR", children) 
 
+    print("Post parse_term, node is:\n", end="")
     print_node(node)
-    print("blah")
     return node, i
 
 
