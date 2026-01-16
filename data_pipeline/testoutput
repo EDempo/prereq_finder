@@ -1,0 +1,98 @@
+['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430', 'CMSC433', 'CMSC435', 'ENEE440', 'ENEE457']
+['ENEE350', 'CMSC330', 'and CMSC351']
+(CMSC414 OR CMSC417 OR CMSC420 OR CMSC430 OR CMSC433 OR CMSC435 OR ENEE440 OR ENEE457);and permission of ENGR-Electrical & Computer Engineering department;and (ENEE350 AND CMSC330 AND  CMSC351).
+tokens is ['LPAREN', 'CMSC414', 'OR', 'CMSC417', 'OR', 'CMSC420', 'OR', 'CMSC430', 'OR', 'CMSC433', 'OR', 'CMSC435', 'OR', 'ENEE440', 'OR', 'ENEE457', 'RPAREN', 'AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+blah
+back, i is 16
+returning my node now
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+i am in here 16
+i is now 17, print node is now: OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+blah
+back, i is 17
+in the expr while, i is 17
+remaining tokens are: ['AND', 'LPAREN', 'ENEE350', 'AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+blah
+back, i is 20
+in the expr while, i is 20
+remaining tokens are: ['AND', 'CMSC330', 'AND', 'CMSC351', 'RPAREN']
+blah
+['ENEE350', 'CMSC330']
+gonna print node now
+AND,
+[ ENEE350, CMSC330 ]
+in the expr while, i is 22
+remaining tokens are: ['AND', 'CMSC351', 'RPAREN']
+blah
+['ENEE350', 'CMSC330', 'CMSC351']
+gonna print node now
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+returning my node now
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+i am in here 24
+i is now 25, print node is now: AND,
+[ ENEE350, CMSC330, CMSC351 ]
+AND,
+[ ENEE350, CMSC330, CMSC351 ]
+blah
+[OR(['CMSC414', 'CMSC417', 'CMSC420', 'CMSC430', 'CMSC433', 'CMSC435', 'ENEE440', 'ENEE457']), AND(['ENEE350', 'CMSC330', 'CMSC351'])]
+gonna print node now
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+returning my node now
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+
+
+
+TEST.PY
+
+
+ returned node was: None
+This is the expected node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+
+This is the result node:
+
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+hi
+AND,
+[ OR,
+[ CMSC414, CMSC417, CMSC420, CMSC430, CMSC433, CMSC435, ENEE440, ENEE457 ]
+, AND,
+[ ENEE350, CMSC330, CMSC351 ]
+ ]
+all good!

@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
           prereqs.push("No prerequisites for this course.");
         }
 
+        console.log(prereqs);
         coreqs = getEdgesBFS(courseID, courseGraph, "coreqs");
         if (coreqs.length == 0) {
           coreqs.push("No corequisites for this course.");

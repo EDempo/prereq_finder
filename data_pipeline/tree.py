@@ -14,23 +14,31 @@ class courseNode:
         return f"{self.type}({self.children})"
 
 def print_node(node):
-    print("PRINTING")
     if(isinstance(node, courseNode)):
-        print(node.type)
-        for i in node.children:
-            if(isinstance(i, courseNode)):
-                print_node(i)
-            else:
-                print(f"{i}\n")
+        print(f"{node.type},")
+        print("[", end=" ")
+
+        for i in range(len(node.children)):
+                if i != 0:
+                    print(",", end= " ")
+                if(isinstance(node.children[i], courseNode)):
+                    print_node(node.children[i])
+                else:
+                    print(f"{node.children[i]}", end="")
+        print(" ]")
 
 def treeify(s):
-    return(parse_expression(tokenize(s), 0))
+    node, _ = (parse_expression(tokenize(s), 0))
+    return node
 
 def expand(match, op):
-    print("ho\n")
     inner = match.group(1)
     courses = [c.strip() for c in inner.split(",")]
-    print(f"this:{courses}")
+    print(courses)
+    for i in range(len(courses)):
+        if "and" in courses[i]:
+            courses[i] = courses[i].replace("and", "")
+
     return "(" + op.join(courses) + ")"
 
 def normalize(s):
@@ -44,6 +52,7 @@ def normalize(s):
                s)
 
 
+    print(s)
     return s
 
 def tokenize(s: str) -> list:
@@ -54,19 +63,19 @@ def tokenize(s: str) -> list:
     s = re.sub(r"\)", " RPAREN ", s)
     punct = r"[;,\.-]"
     s = re.sub(punct, "", s)
+    s = s.upper()
 
     lst = s.split()
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
     for word in lst:
         if word in {"OR" , "AND" , "LPAREN" , "RPAREN" }:
-            print(word)
             tokens.append(word)
         else:
             course = re.fullmatch(course_pattern, word)
             if course:
                 tokens.append(course.group())
 
-    print(f"TOKENS:\n{tokens}\n-------------------------------\n")
+    print(f"tokens is {tokens}")
     return tokens
 
 #for token in tokens:
@@ -79,119 +88,67 @@ def tokenize(s: str) -> list:
 #I will have a paren flag letting me know if I'm in a set of parenthesis
 #I will make a subtree for all tree
 
-#expression := term (AND term)*
-#term       := factor (OR factor)*
-#factor     := COURSE/LPAREN expression RPAREN
 
 #Expression takes highest precedence, then terms, then factors
 
+
+#expression := term (AND term)*
 def parse_expression(tokens, i):
+    children = []
     node, i = parse_term(tokens, i)
+    print(f"back, i is {i}")
+    children.append(node)
     while i < len(tokens) and tokens[i] == "AND":
+        print(f"in the expr while, i is {i}")
+        print(f"remaining tokens are: {tokens[i:]}")
         i += 1
         right, i = parse_term(tokens, i)
-        node = courseNode("AND", [node, right])
-    print("parsed expression")
+        children.append(right)
+        print(children)
+        node = courseNode("AND", children)
+        print("gonna print node now")
+        print_node(node)
+
+    print("returning my node now")
     print_node(node)
     return node, i
 
+
+#term := factor (OR factor)*
 def parse_term(tokens, i):
+    children = []
     node, i = parse_factor(tokens, i)
-    while tokens[i] == "OR":
+    if(isinstance(node, str)):
+        children.append(node)
+    while i < len(tokens) and tokens[i] == "OR":
         i += 1
-        node = courseNode("OR", parse_factor(tokens, i))
-    print("parsed term")
-    print(node)
+        right, i = parse_factor(tokens, i)
+        children.append(right)
+        node = courseNode("OR", children) 
+
+    print_node(node)
+    print("blah")
     return node, i
 
+
+#factor := COURSE/LPAREN expression RPAREN
 def parse_factor(tokens, i):
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
-    if re.match(course_pattern, tokens[i]):
-        lst = []
-        lst.append(tokens[i])
+    if tokens[i] == "LPAREN":
         i += 1
-        while re.match(course_pattern, tokens[i]):
-            lst.append(tokens[i])
-            i += 1
-        return lst, i
-    elif tokens[i] == "LPAREN":
+        node, i = parse_expression(tokens, i)
+        print(f"i am in here {i}")
+        if tokens[i] != "RPAREN":
+            print(f"At index {i}, the token is {tokens[i]}")
+            raise SyntaxError("Expected RPAREN")
         i += 1
-        node = parse_expression(tokens, i)
-        i += 1
-        print("parsed factor")
-        print(node)
+        print(f"i is now {i}, print node is now: ", end="")
+        print_node(node)
         return node, i
+    elif re.fullmatch(course_pattern, tokens[i]):
+        i += 1
+        return tokens[i-1], i
     else:
-        print("No factor\n")
-        return None, i
-
-## Factor Testing ##
-def test_factor_course():
-    tokens = ["CMSC351"]
-    node, i = parse_factor(tokens, 0)
-
-    assert node == "CMSC351", "test factor course failed"
-    assert i == 1, "test factor course failed"
-
-def test_factor_parens():
-    tokens = ["LPAREN", "CMSC330", "RPAREN"]
-    node, i = parse_factor(tokens, 0)
-
-    assert node == "CMSC330", "test factor perens failed"
-    assert i == 3, "test factor parens failed"
-
-def test_term_or_chain():
-    tokens = ["CMSC330", "OR", "CMSC351", "OR", "CMSC420"]
-    node, i = parse_term(tokens, 0)
-
-    expected = courseNode(
-        "OR",
-        [
-            courseNode("OR", ["CMSC330", "CMSC351"]),
-            "CMSC420"
-        ]
-    )
-
-    assert node == expected, "or chain"
-    assert i == len(tokens), "or chain"
-
-def test_expression_and_or():
-    tokens = [
-        "CMSC330", "AND",
-        "CMSC351", "OR",
-        "CMSC420"
-    ]
-
-    node, i = parse_expression(tokens, 0)
-
-    expected = courseNode(
-        "AND",
-        [
-            "CMSC330",
-            courseNode("OR", ["CMSC351", "CMSC420"])
-        ]
-    )
-
-    assert node == expected, "and or"
-    assert i == len(tokens), "and or"
-
-def test_full_prereq():
-    s = (
-        "1 course with a minimum grade of C- from "
-        "(CMSC414, CMSC417, CMSC420); "
-        "and (ENEE350, CMSC330, and CMSC351)."
-    )
-    node, _ = treeify(s)
-
-    expected = courseNode(
-        "AND",
-        [
-            courseNode("OR", ["CMSC414", "CMSC417", "CMSC420"]),
-            courseNode("AND", ["ENEE350", "CMSC330", "CMSC351"])
-        ]
-    )
-
-    assert node == expected, "full"
-    print_node(node)
+        raise SyntaxError(f"Unexpected token: {tokens[i]}");
 
 

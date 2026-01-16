@@ -34,3 +34,7 @@ Task 2: Depth Labling
     - show "(prereq of X)" as a separate <span>
 [ ] Style the span with CSS (smaller, italic, muted)
 [ ] Do NOT encode depth or parent info into strings
+
+Task 3: Fix Bugs
+[ ] One bug I know of: CMSC412 has ENEE447 as a prereq even though the original prereq graph 
+doesng contain 447, get to the bottom of that (might get fixed when task 1 is finished)
