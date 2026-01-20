@@ -18,6 +18,7 @@ def test_prereqs(s, expected, i):
     else:
         print(f"On run {i}, diff diff")
 
+    print(f"\n\nThis is the flattened strucutre: {tree.flatten(node)}")
 
 
 def test():

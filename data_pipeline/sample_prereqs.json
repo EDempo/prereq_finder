@@ -1,0 +1,89 @@
+{
+  "total": 35,
+  "patterns": {
+    "OR separated courses": 12,
+    "Complex AND/OR combinations": 6,
+    "AND separated courses": 7,
+    "1 from (courses)": 3,
+    "Single Course": 6,
+    "Permission + courses": 1
+  },
+  "examples": {
+    "OR separated courses": [
+      {
+        "course": "AASP297",
+        "string": "AASP101 or AASP202."
+      },
+      {
+        "course": "AASP314",
+        "string": "AASP100 or HIST157."
+      },
+      {
+        "course": "AASP400",
+        "string": "AASP202 or AASP100."
+      }
+    ],
+    "Complex AND/OR combinations": [
+      {
+        "course": "AASP301",
+        "string": "AASP101; and (ECON201 or ECON200)."
+      },
+      {
+        "course": "AMSC663",
+        "string": "CMSC660 or AMSC660; and (CMSC661 or AMSC661)."
+      },
+      {
+        "course": "ANSC252",
+        "string": "BSCI105; or (BSCI170 and BSCI171); or permission of AGNR-Animal & Avian Sciences department; or students who have taken courses with comparable content may contact the department."
+      }
+    ],
+    "AND separated courses": [
+      {
+        "course": "AASP396",
+        "string": "AASP386 and AASP297."
+      },
+      {
+        "course": "AMSC666",
+        "string": "CMSC466 or AMSC466; and MATH410."
+      },
+      {
+        "course": "AMST450",
+        "string": "AMST201 and AMST340; and 1 course in AMST."
+      }
+    ],
+    "1 from (courses)": [
+      {
+        "course": "AMSC460",
+        "string": "1 course with a minimum grade of C- from (MATH240, MATH461, MATH341); and 1 course with a minimum grade of C- from (MATH340, MATH241); and 1 course with a minimum grade of C- from (CMSC106, CMSC131); and minimum grade of C- in MATH246."
+      },
+      {
+        "course": "AMSC466",
+        "string": "1 course with a minimum grade of C- from (MATH240, MATH461, MATH341); and 1 course with a minimum grade of C- from (MATH340, MATH241); and 1 course with a minimum grade of C- from (CMSC106, CMSC131); and minimum grade of C- in MATH410."
+      },
+      {
+        "course": "ANSC450",
+        "string": "ANSC101; and 1 course with a minimum grade of C- from (MATH120, MATH130, MATH136, MATH140)."
+      }
+    ],
+    "Single Course": [
+      {
+        "course": "AMSC670",
+        "string": "MATH405."
+      },
+      {
+        "course": "AMSC673",
+        "string": "MATH411; or students who have taken courses with comparable content may contact the department."
+      },
+      {
+        "course": "AMST340",
+        "string": "Must have completed AMST201; and 2 courses in AMST."
+      }
+    ],
+    "Permission + courses": [
+      {
+        "course": "ANSC330",
+        "string": "ANSC232; or permission of instructor."
+      }
+    ]
+  }
+}

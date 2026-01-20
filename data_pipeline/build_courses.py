@@ -2,7 +2,7 @@ import requests
 import re
 import sys
 import json
-import tree.py
+import tree
 
 year_catalog = []
 

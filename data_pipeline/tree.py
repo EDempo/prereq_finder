@@ -57,8 +57,10 @@ def normalize(s):
 def tokenize(s: str) -> list:
     tokens = []
     s = normalize(s)
-    s = re.sub(r"and\s+permission\s+of\s+.*?department\s*;?", "", s, flags = re.IGNORECASE)
-    s = re.sub(r"or\s+permission\s+of\s+.*?instructor\s*;?", "", s, flags = re.IGNORECASE)
+    s = re.sub(r"and\s+permission\s+of\s+.*?department\s*;?", "PERMS", s, flags = re.IGNORECASE)
+    s = re.sub(r"or\s+permission\s+of\s+.*?department\s*;?", "PERMS", s, flags = re.IGNORECASE)
+    s = re.sub(r"or\s+permission\s+of\s+.*?instructor\s*;?", "PERMS", s, flags = re.IGNORECASE)
+    s = re.sub(r"or\s+students\s+.*?department\s*;?", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\(", " LPAREN ", s) 
     s = re.sub(r"\)", " RPAREN ", s)
     punct = r"[;,\.-]"
@@ -79,19 +81,9 @@ def tokenize(s: str) -> list:
     print(f"tokens is {tokens}")
     return tokens
 
-#for token in tokens:
-#if LPAREN, while not right paren follow parse rules for all other token types
-#if RPAREN, break out of the loop and just go back to the main parse loop
-#if COURSE, add course to courseTree children
-#if OR, call or parser; if no AND has been found yet, set type of node to OR
-#if AND, call and parser; if AND is outside of PAREN, then  make type of courseTree AND
-
-#I will have a paren flag letting me know if I'm in a set of parenthesis
-#I will make a subtree for all tree
 
 
 #Expression takes highest precedence, then terms, then factors
-
 
 #expression := term (AND term)*
 def parse_expression(tokens, i):
@@ -152,3 +144,11 @@ def parse_factor(tokens, i):
         raise SyntaxError(f"Unexpected token: {tokens[i]}");
 
 
+def flatten(node: courseNode) -> list:
+    flattened = [node.type]
+    for c in node.children:
+        if(isinstance(c, courseNode)):
+            flattened.append(flatten(c))
+        else:
+            flattened.append(c)
+    return flattened
