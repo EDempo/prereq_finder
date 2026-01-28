@@ -141,7 +141,7 @@ def parse_factor(tokens, i):
         i += 1
         return tokens[i-1], i
     else:
-        raise SyntaxError(f"Unexpected token: {tokens[i]}");
+        raise SyntaxError(f"Unexpected token: {tokens[i]}")
 
 
 def flatten(node: courseNode) -> list:

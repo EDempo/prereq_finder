@@ -1,4 +1,5 @@
 import tree
+import tokens
 
 # OR separated courses
 s1 = "AASP101 or AASP202."
@@ -28,4 +29,5 @@ s15 = "Must have completed AMST201; and 2 courses in AMST."
 # Permission + courses
 s16 = "ANSC232; or permission of instructor."
 
-print(tree.flatten(tree.treeify(s1)))
+print(tokens.tokenize_prereq_string(s6))
+print(tree.tokenize(s6))
