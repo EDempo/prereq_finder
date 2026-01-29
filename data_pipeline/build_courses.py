@@ -80,14 +80,12 @@ for term in reversed(year_catalog):
                 prereq_string = relationships['prereqs']
                 prereqs = []
                 if prereq_string is not None:
-                    normalize(prereq_string)
-                    course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
-                    prereqs = re.findall(course_pattern, prereq_string)
+                    prereqs = tree.flatten(tree.treeify(prereq_string))
 
                 coreq_string = relationships['coreqs']
                 coreqs = []
                 if coreq_string is not None:
-                    coreqs = re.findall(course_pattern, coreq_string)
+                    coreqs = tree.flatten(tree.treeify(coreq_string))
 
                 course_dict = {
                         "prereqs": prereqs,

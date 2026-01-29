@@ -29,6 +29,7 @@ def print_node(node):
 
 def treeify(s):
     node, _ = (parse_expression(tokenize(s), 0))
+    #print("Done frfr\n")
     return node
 
 def expand(match, op):
@@ -41,6 +42,29 @@ def expand(match, op):
     return "(" + op.join(courses) + ")"
 
 def normalize(s):
+
+    # Remove common prefixes and boilerplate
+    s = re.sub(r"Prerequisite:\s*", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"Must have completed\s*", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"Corequisite:\s*", "", s, flags=re.IGNORECASE)
+    
+    # Remove grade requirement prefixes but keep the course
+    s = re.sub(r"Minimum grade of [A-D][+-]?\s+in\s+", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"minimum grade of [A-D][+-]?\s+in\s+", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"with a minimum grade of [A-D][+-]?\s+from\s+", "from ", s, flags=re.IGNORECASE)
+    
+    # Handle course count requirements - convert to parentheses format
+    #s = re.sub(r"(\d+) courses? in\s+", r"(\1 courses in ", s, flags=re.IGNORECASE)
+    s = re.sub(r"(and|or)? ([1-9]) courses? in\s+([A-Z]{4})\.", r"\1 \2\3", s, flags=re.IGNORECASE)
+    
+    # Remove student contact clauses (these don't affect parsing)
+    s = re.sub(r"or\s+students\s+who\s+have\s+taken\s+courses\s+with\s+comparable\s+content\s+may\s+contact\s+the\s+department\s*[;,\.]?", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"students\s+who\s+have\s+taken\s+courses\s+with\s+comparable\s+content\s+may\s+contact\s+the\s+department\s*[;,\.]?", "", s, flags=re.IGNORECASE)
+    
+    # Standardize whitespace
+    s = re.sub(r"\s+", " ", s)
+    s = s.strip()
+
     s = re.sub(r"1 course.*?from \(([^()]*)\)",
                lambda m: expand(m, " OR "),
                s,
@@ -50,13 +74,6 @@ def normalize(s):
                lambda m: expand(m, " AND "),
                s)
 
-
-    print(f"Normalized string is {s}")
-    return s
-
-def tokenize(s: str) -> list:
-    tokens = []
-    s = normalize(s)
     s = re.sub(r"and\s+permission\s+of\s+.*?department\s*;?", "PERMS", s, flags = re.IGNORECASE)
     s = re.sub(r"or\s+permission\s+of\s+.*?department\s*;?", "PERMS", s, flags = re.IGNORECASE)
     s = re.sub(r"or\s+permission\s+of\s+.*?instructor\s*;?", "PERMS", s, flags = re.IGNORECASE)
@@ -66,10 +83,20 @@ def tokenize(s: str) -> list:
     punct = r"[;,\.-]"
     s = re.sub(punct, "", s)
     s = s.upper()
-    print(f"this is s after all is s&d: {s}")
+
+    #print(f"Normalized string is {s}")
+ 
+    return s
+
+def tokenize(s: str) -> list:
+    tokens = []
+    print(f"This is s {s}")
+    s = normalize(s)
+    #print(f"this is s after all is s&d: {s}")
 
     lst = s.split()
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
+    courses_pattern = r"[1-9][A-Z]{4}"
     for word in lst:
         if word in {"OR" , "AND" , "LPAREN" , "RPAREN" }:
             tokens.append(word)
@@ -77,6 +104,10 @@ def tokenize(s: str) -> list:
             course = re.fullmatch(course_pattern, word)
             if course:
                 tokens.append(course.group())
+            else:
+                courses = re.fullmatch(courses_pattern, word)
+                if courses:
+                    tokens.append(courses.group())
 
     print(f"tokens is {tokens}")
     return tokens
@@ -89,21 +120,21 @@ def tokenize(s: str) -> list:
 def parse_expression(tokens, i):
     children = []
     node, i = parse_term(tokens, i)
-    print(f"back, i is {i}")
+    #print(f"back, i is {i}")
     children.append(node)
     while i < len(tokens) and tokens[i] == "AND":
-        print(f"in the expr while, i is {i}")
-        print(f"remaining tokens are: {tokens[i:]}")
+        #print(f"in the expr while, i is {i}")
+        #print(f"remaining tokens are: {tokens[i:]}")
         i += 1
         right, i = parse_term(tokens, i)
         children.append(right)
-        print(children)
+        #print(children)
         node = courseNode("AND", children)
-        print("gonna print node now")
-        print_node(node)
+        #print("gonna print node now")
+        #print_node(node)
 
-    print("returning my node now")
-    print_node(node)
+    #print("returning my node now")
+    #print_node(node)
     return node, i
 
 
@@ -118,34 +149,40 @@ def parse_term(tokens, i):
         children.append(right)
         node = courseNode("OR", children) 
 
-    print("Post parse_term, node is:\n", end="")
-    print_node(node)
+    #print("Post parse_term, node is:\n", end="")
+    #print_node(node)
     return node, i
 
 
 #factor := COURSE/LPAREN expression RPAREN
 def parse_factor(tokens, i):
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
-    if tokens[i] == "LPAREN":
-        i += 1
-        node, i = parse_expression(tokens, i)
-        print(f"i am in here {i}")
-        if tokens[i] != "RPAREN":
-            print(f"At index {i}, the token is {tokens[i]}")
-            raise SyntaxError("Expected RPAREN")
-        i += 1
-        print(f"i is now {i}, print node is now: ", end="")
-        print_node(node)
-        return node, i
-    elif re.fullmatch(course_pattern, tokens[i]):
-        i += 1
-        return tokens[i-1], i
+    courses_pattern = r"[1-9][A-Z]{4}"
+    if i < len(tokens):
+        if tokens[i] == "LPAREN":
+            i += 1
+            node, i = parse_expression(tokens, i)
+            #print(f"i am in here {i}")
+            if i < len(tokens) and tokens[i] != "RPAREN":
+                #print(f"At index {i}, the token is {tokens[i]}")
+                raise SyntaxError("Expected RPAREN")
+            i += 1
+            #print(f"i is now {i}, print node is now: ", end="")
+            #print_node(node)
+            return node, i
+        elif re.fullmatch(course_pattern, tokens[i]) or re.fullmatch(courses_pattern, tokens[i]):
+            i += 1
+            return tokens[i-1], i
+        else:
+            raise SyntaxError(f"Unexpected token: {tokens[i]}")
     else:
-        raise SyntaxError(f"Unexpected token: {tokens[i]}")
+        raise IndexError(f"Index {i} is greater than token list length {len(tokens)}")
 
 
 def flatten(node: courseNode) -> list:
-    flattened = [node.type]
+    flattened = [node.type] if isinstance(node, courseNode) else node
+    if(isinstance(flattened, str)):
+        return flattened
     for c in node.children:
         if(isinstance(c, courseNode)):
             flattened.append(flatten(c))
