@@ -1,0 +1,123 @@
+=== REVERSE PREREQUISITES TEST CASE ===
+Error parsing CMSC216: Index 0 is greater than token list length 0
+Prereq List for CMSC216 is []
+Error parsing CMSC250: Index 0 is greater than token list length 0
+Prereq List for CMSC250 is []
+Error parsing MATH240: Index 0 is greater than token list length 0
+Prereq List for MATH240 is []
+Error parsing MATH461: Index 0 is greater than token list length 0
+Prereq List for MATH461 is []
+Error parsing MATH341: Index 0 is greater than token list length 0
+Prereq List for MATH341 is []
+Error parsing MATH246: Index 0 is greater than token list length 0
+Prereq List for MATH246 is []
+Error parsing AMST201: Index 0 is greater than token list length 0
+Prereq List for AMST201 is []
+Prereq List for CMSC330 is ['CMSC216', 'CMSC250']
+Prereq List for CMSC351 is ['CMSC330', 'CMSC350']
+Prereq List for MATH401 is ['MATH240', 'MATH461', 'MATH341', 'MATH246']
+Prereq List for AMST300 is ['AMST201']
+Error parsing ENEE101: Index 0 is greater than token list length 0
+Prereq List for ENEE101 is []
+Prereq List for TEST101 is ['CMSC351', 'MATH401']
+dealing with CMSC216
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with CMSC250
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with MATH240
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with MATH461
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with MATH341
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with MATH246
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with AMST201
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with CMSC330
+{'prereqs': ['CMSC216', 'CMSC250'], 'coreqs': [], 'reverse_prereqs': []}
+CMSC216
+hi
+HIIIIIII
+['CMSC330']
+CMSC250
+hi
+HIIIIIII
+['CMSC330']
+Reverse-Prereq List for this course is []
+dealing with CMSC351
+{'prereqs': ['CMSC330', 'CMSC350'], 'coreqs': [], 'reverse_prereqs': []}
+CMSC330
+hi
+HIIIIIII
+['CMSC351']
+CMSC350
+CMSC350 does not exist in {'CMSC216': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': ['CMSC330']}, 'CMSC250': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': ['CMSC330']}, 'MATH240': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}, 'MATH461': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}, 'MATH341': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}, 'MATH246': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}, 'AMST201': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}, 'CMSC330': {'prereqs': ['CMSC216', 'CMSC250'], 'coreqs': [], 'reverse_prereqs': ['CMSC351']}, 'CMSC351': {'prereqs': ['CMSC330', 'CMSC350'], 'coreqs': [], 'reverse_prereqs': []}, 'MATH401': {'prereqs': ['MATH240', 'MATH461', 'MATH341', 'MATH246'], 'coreqs': [], 'reverse_prereqs': []}, 'AMST300': {'prereqs': ['AMST201'], 'coreqs': [], 'reverse_prereqs': []}, 'ENEE101': {'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}, 'TEST101': {'prereqs': ['CMSC351', 'MATH401'], 'coreqs': [], 'reverse_prereqs': []}}
+Reverse-Prereq List for this course is []
+dealing with MATH401
+{'prereqs': ['MATH240', 'MATH461', 'MATH341', 'MATH246'], 'coreqs': [], 'reverse_prereqs': []}
+MATH240
+hi
+HIIIIIII
+['MATH401']
+MATH461
+hi
+HIIIIIII
+['MATH401']
+MATH341
+hi
+HIIIIIII
+['MATH401']
+MATH246
+hi
+HIIIIIII
+['MATH401']
+Reverse-Prereq List for this course is []
+dealing with AMST300
+{'prereqs': ['AMST201'], 'coreqs': [], 'reverse_prereqs': []}
+AMST201
+hi
+HIIIIIII
+['AMST300']
+Reverse-Prereq List for this course is []
+dealing with ENEE101
+{'prereqs': [], 'coreqs': [], 'reverse_prereqs': []}
+Reverse-Prereq List for this course is []
+dealing with TEST101
+{'prereqs': ['CMSC351', 'MATH401'], 'coreqs': [], 'reverse_prereqs': []}
+CMSC351
+hi
+HIIIIIII
+['TEST101']
+MATH401
+hi
+HIIIIIII
+['TEST101']
+Reverse-Prereq List for this course is []
+
+--- VERIFICATION ---
+✓ CMSC216: ['CMSC330']
+✓ CMSC250: ['CMSC330']
+✗ CMSC330: Expected ['CMSC351', 'TEST101'], got ['CMSC351']
+✗ CMSC350: Expected ['CMSC351'], got []
+✓ MATH240: ['MATH401']
+✓ MATH461: ['MATH401']
+✓ MATH341: ['MATH401']
+✓ MATH246: ['MATH401']
+✓ AMST201: ['AMST300']
+✓ ENEE101: []
+✓ TEST101: []
+
+--- EDGE CASE VERIFICATION ---
+✓ Course count token '2AMST' handled correctly in forward prereqs
+✓ Course with no prereqs has empty reverse_prereqs
+✓ TEST101 correctly not in its own reverse_prereqs
+
+=== TEST RESULT: FAILED ===

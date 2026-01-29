@@ -56,6 +56,7 @@ def normalize(s):
     # Handle course count requirements - convert to parentheses format
     #s = re.sub(r"(\d+) courses? in\s+", r"(\1 courses in ", s, flags=re.IGNORECASE)
     s = re.sub(r"(and|or)? ([1-9]) courses? in\s+([A-Z]{4})\.", r"\1 \2\3", s, flags=re.IGNORECASE)
+    s = re.sub(r"(and|or)?\s+must+have+appropriate\s+score", "", s, flags=re.IGNORECASE)
     
     # Remove student contact clauses (these don't affect parsing)
     s = re.sub(r"or\s+students\s+who\s+have\s+taken\s+courses\s+with\s+comparable\s+content\s+may\s+contact\s+the\s+department\s*[;,\.]?", "", s, flags=re.IGNORECASE)
@@ -90,7 +91,7 @@ def normalize(s):
 
 def tokenize(s: str) -> list:
     tokens = []
-    print(f"This is s {s}")
+    #print(f"This is s {s}")
     s = normalize(s)
     #print(f"this is s after all is s&d: {s}")
 
@@ -109,6 +110,19 @@ def tokenize(s: str) -> list:
                 if courses:
                     tokens.append(courses.group())
 
+    i = 0
+    while(i <len(tokens)):
+        if(tokens[i] == "LPAREN"):
+            if i + 1 < len(tokens) and tokens[i + 1] == "RPAREN":
+                print(i)
+                print(i + 1)
+                tokens.pop(i)
+                tokens.pop(i)
+                i += 2
+            else:
+                i += 1
+        else:
+            i += 1
     print(f"tokens is {tokens}")
     return tokens
 
@@ -118,6 +132,8 @@ def tokenize(s: str) -> list:
 
 #expression := term (AND term)*
 def parse_expression(tokens, i):
+    if(len(tokens) == 0):
+        return None, i
     children = []
     node, i = parse_term(tokens, i)
     #print(f"back, i is {i}")
@@ -140,6 +156,8 @@ def parse_expression(tokens, i):
 
 #term := factor (OR factor)*
 def parse_term(tokens, i):
+    if(len(tokens) == 0):
+        return None, i
     children = []
     node, i = parse_factor(tokens, i)
     children.append(node)
@@ -156,6 +174,8 @@ def parse_term(tokens, i):
 
 #factor := COURSE/LPAREN expression RPAREN
 def parse_factor(tokens, i):
+    if(len(tokens) == 0):
+        return None, i
     course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
     courses_pattern = r"[1-9][A-Z]{4}"
     if i < len(tokens):

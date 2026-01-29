@@ -1,0 +1,220 @@
+TERM IS 202505
+Course #1
+DONE 1
+Course #2
+DONE 2
+Course #3
+DONE 3
+Course #4
+DONE 4
+Course #5
+DONE 5
+Course #6
+DONE 6
+Course #7
+DONE 7
+Course #8
+DONE 8
+Course #9
+DONE 9
+Course #10
+DONE 10
+Course #11
+DONE 11
+Course #12
+DONE 12
+Course #13
+DONE 13
+Course #14
+DONE 14
+Course #15
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+infinite
+tokens is ['LPAREN', 'MATH240', 'OR', 'MATH341', 'OR', 'MATH461', 'RPAREN', 'AND', 'LPAREN', 'MATH241', 'OR', 'MATH340', 'RPAREN', 'AND', 'LPAREN', 'CMSC106', 'OR', 'CMSC131', 'RPAREN', 'AND', 'MATH246']
+DONE 15
+Course #16
+DONE 16
+Course #17
+DONE 17
+Course #18
+DONE 18
+Course #19
+DONE 19
+Course #20
+DONE 20
+Course #21
+DONE 21
+Course #22
+DONE 22
+Course #23
+DONE 23
+Course #24
+DONE 24
+Course #25
+DONE 25
+Course #26
+DONE 26
+Course #27
+DONE 27
+Course #28
+DONE 28
+Course #29
+DONE 29
+Course #30
+DONE 30
+Course #31
+DONE 31
+Course #32
+DONE 32
+Course #33
+DONE 33
+Course #34
+DONE 34
+Course #35
+infinite
+infinite
+infinite
+infinite
+tokens is ['AMST856', 'ANTH856', 'OR', 'HIST810']
+DONE 35
+Course #36
+DONE 36
+Course #37
+DONE 37
+Course #38
+DONE 38
+Course #39
+DONE 39
+Course #40
+DONE 40
+Course #41
+DONE 41
+Course #42
+DONE 42
+Course #43
+DONE 43
+Course #44
+DONE 44
+Course #45
+DONE 45
+Course #46
+DONE 46
+Course #47
+DONE 47
+Course #48
+DONE 48
+Course #49
+DONE 49
+Course #50
+DONE 50
+Course #51
+DONE 51
+Course #52
+DONE 52
+Course #53
+DONE 53
+Course #54
+DONE 54
+Course #55
+DONE 55
+Course #56
+DONE 56
+Course #57
+DONE 57
+Course #58
+infinite
+tokens is ['ANTH260']
+DONE 58
+Course #59
+DONE 59
+Course #60
+DONE 60
+Course #61
+DONE 61
+Course #62
+DONE 62
+Course #63
+DONE 63
+Course #64
+DONE 64
+Course #65
+DONE 65
+Course #66
+DONE 66
+Course #67
+DONE 67
+Course #68
+DONE 68
+Course #69
+DONE 69
+Course #70
+DONE 70
+Course #71
+DONE 71
+Course #72
+infinite
+infinite
+infinite
+infinite
+tokens is ['AMST856', 'ANTH856', 'OR', 'HIST810']
+DONE 72
+Course #73
+DONE 73
+Course #74
+DONE 74
+Course #75
+infinite
+infinite
+infinite
+infinite
+tokens is ['MATH107', 'MATH110', 'OR', 'MATH115']
+DONE 75
+Course #76
+DONE 76
+Course #77
+infinite
+tokens is ['MATH140']
+DONE 77
+Course #78
+DONE 78
+Course #79
+DONE 79
+Course #80
+DONE 80
+Course #81
+DONE 81
+Course #82
+DONE 82
+Course #83
+infinite
+0
+1
+tokens is []
+DONE 83
+Course #84
+infinite
+infinite
+infinite
+2
+3
+tokens is ['ARAB104', 'OR']
+An unexpected error occured: Index 2 is greater than token list length 2

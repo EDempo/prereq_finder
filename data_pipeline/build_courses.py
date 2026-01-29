@@ -66,8 +66,9 @@ courseGraph = {}
 
 
 for term in reversed(year_catalog):
+    print(f"TERM IS {term}")
     page = 1
-
+    count = 1
     while(1):
         try:
             response = requests.get(f'https://api.umd.io/v1/courses?semester={term}&page={page}&per_page=100')
@@ -75,17 +76,20 @@ for term in reversed(year_catalog):
             if not courses:
                 break
             for course in courses:
+                print(f"Course #{count}")
                 course_id = course['course_id']
                 relationships = course['relationships']
                 prereq_string = relationships['prereqs']
                 prereqs = []
                 if prereq_string is not None:
-                    prereqs = tree.flatten(tree.treeify(prereq_string))
+                    node = tree.treeify(prereq_string)
+                    prereqs = tree.flatten(node) if node is not None else [] 
 
                 coreq_string = relationships['coreqs']
                 coreqs = []
                 if coreq_string is not None:
-                    coreqs = tree.flatten(tree.treeify(coreq_string))
+                    course_pattern = r"[A-Z]{4}\d{3}(?:[A-Z]{1})?"
+                    coreqs = re.findall(course_pattern, coreq_string)
 
                 course_dict = {
                         "prereqs": prereqs,
@@ -95,6 +99,8 @@ for term in reversed(year_catalog):
 
                 if course_id not in courseGraph:
                     courseGraph[course_id] = course_dict
+                print(f"DONE {count}")
+                count += 1
             page += 1
 
         except requests.exceptions.Timeout as e:
